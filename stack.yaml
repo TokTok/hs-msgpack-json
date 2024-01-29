@@ -1,0 +1,5 @@
+---
+packages: [.]
+resolver: lts-21.9
+extra-deps:
+  - monad-validate-1.3.0.0

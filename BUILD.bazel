@@ -1,0 +1,39 @@
+load("@rules_haskell//haskell:defs.bzl", "haskell_library")
+load("//third_party/haskell/hspec-discover:build_defs.bzl", "hspec_test")
+load("//tools/project:build_defs.bzl", "project")
+
+project(license = "hs-msgpack")
+
+haskell_library(
+    name = "hs-msgpack-json",
+    srcs = glob(["src/**/*.*hs"]),
+    src_strip_prefix = "src",
+    tags = ["no-cross"],
+    version = "0.2.0",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//hs-msgpack-types",
+        "//third_party/haskell:aeson",
+        "//third_party/haskell:base",
+        "//third_party/haskell:monad-validate",
+        "//third_party/haskell:scientific",
+        "//third_party/haskell:vector",
+    ],
+)
+
+hspec_test(
+    name = "testsuite",
+    size = "small",
+    deps = [
+        ":hs-msgpack-json",
+        "//hs-msgpack-types",
+        "//third_party/haskell:QuickCheck",
+        "//third_party/haskell:base",
+        "//third_party/haskell:bytestring",
+        "//third_party/haskell:hspec",
+        "//third_party/haskell:monad-validate",
+        "//third_party/haskell:quickcheck-instances",
+        "//third_party/haskell:text",
+        "//third_party/haskell:vector",
+    ],
+)
